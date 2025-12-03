@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <!-- <script>
+        function LoadScript(src, callback) {
+            let script = document.createElement('script')
+            script.src = src
+
+            script.onload = () => callback(null, script);
+            script.onerror = () => callback(new Error("The script not loaded boroo"))
+
+            document.head.append(script)
+        }
+
+        LoadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js', function(error, script){
+            if(error){ alert(error)}
+            else { alert(`${script.src} is loaded successfully`)}
+        })
+
+    </script> -->
+
+    <script>
+        function LoadScript(src){
+            return new Promise(function(resolve, reject){
+                let script = document.createElement('script')
+                script.src = src
+
+                script.onload = () => resolve(`${script.src} is loaded successfully`)                
+                script.onerror = () => reject(new Error('Ooops! Script not loaded'))
+
+                //script starts to load
+                document.head.append(script)
+            })
+        }
+
+        LoadScript("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js")
+        .finally(() => alert("Wait is over, results are available"))
+        .then(result => alert(result))
+        .catch(error => alert(error))
+    </script>
+</body>
+
+</html>
